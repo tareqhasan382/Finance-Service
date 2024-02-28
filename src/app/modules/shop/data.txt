@@ -1,0 +1,155 @@
+import { Model } from "mongoose";
+
+export type IShop = {
+  name: string;
+  price: string;
+  model: string;
+  img: string;
+  display: {
+    size: string;
+    type?: string;
+    resolution: string;
+    features?: string;
+  };
+  processor: {
+    chipset: string;
+    cpuType: string;
+    cpuSpeed: string;
+    gpu: string;
+  };
+  memory: {
+    ram: string;
+    internalStorage: string;
+    cardSlot: string;
+  };
+  camera: {
+    rear: {
+      resolution: string;
+      features?: string;
+      videoRecording?: string;
+    };
+    front: {
+      resolution: string;
+      videoRecording?: string;
+    };
+  };
+  audio: {
+    speaker: string;
+  };
+  networkConnectivity: {
+    sim: string;
+    network: string;
+    wifi: string;
+    bluetooth: string;
+    gps: string;
+    nfc: string;
+    usb: string;
+    audioJack: string;
+  };
+  os: {
+    operatingSystem: string;
+    upgradable: string;
+    features: string;
+  };
+  features: {
+    fingerprint: string;
+    sensors: string;
+    other: string;
+  };
+  battery: {
+    type: string;
+    capacity: string;
+  };
+  physicalSpecification: {
+    dimension: string;
+    weight: string;
+    bodyMaterial: string;
+    colors: string;
+  };
+  warrantyInformation: {
+    warranty: string;
+  };
+};
+export type IShopModel = Model<IShop, Record<string, unknown>>;
+// price, name, type, processor, memory, OS.
+
+import { Schema, model } from "mongoose";
+import { IShop, IShopModel } from "./shop.interface";
+
+const shopSchema = new Schema<IShop>(
+  {
+    name: String,
+    price: String,
+    img: String,
+    model: String,
+    display: {
+      size: String,
+      type: String,
+      resolution: String,
+      features: String,
+    },
+    processor: {
+      chipset: String,
+      cpuType: String,
+      cpuSpeed: String,
+      gpu: String,
+    },
+    memory: {
+      ram: String,
+      internalStorage: String,
+      cardSlot: String,
+    },
+    camera: {
+      rear: {
+        resolution: String,
+        features: String,
+        videoRecording: String,
+      },
+      front: {
+        resolution: String,
+        videoRecording: String,
+      },
+    },
+    audio: {
+      speaker: String,
+    },
+    networkConnectivity: {
+      sim: String,
+      network: String,
+      wifi: String,
+      bluetooth: String,
+      gps: String,
+      nfc: String,
+      usb: String,
+      audioJack: String,
+    },
+    os: {
+      operatingSystem: String,
+      upgradable: String,
+      features: [String],
+    },
+    features: {
+      fingerprint: String,
+      sensors: [String],
+      other: String,
+    },
+    battery: {
+      type: String,
+      capacity: String,
+    },
+    physicalSpecification: {
+      dimension: String,
+      weight: String,
+      bodyMaterial: String,
+      colors: [String],
+    },
+    warrantyInformation: {
+      warranty: String,
+    },
+  },
+  { timestamps: true }
+);
+
+const ShopModel = model<IShop, IShopModel>("Shop", shopSchema);
+
+export default ShopModel;
